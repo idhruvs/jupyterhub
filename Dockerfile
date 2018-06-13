@@ -29,8 +29,9 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get -y update && \
     apt-get -y upgrade && \
     apt-get -y install wget git bzip2 && \
+    apt-get -y install npm nodejs && \ 
     apt-get purge && \
-    apt-get clean && \
+    apt-get clean && \  
     rm -rf /var/lib/apt/lists/*
 ENV LANG C.UTF-8
 
@@ -50,11 +51,13 @@ WORKDIR /src/jupyterhub
 
 RUN pip install . && \
     rm -rf $PWD ~/.cache ~/.npm
+RUN pip install oauthenticator
+RUN pip --update notebooks
 
 RUN mkdir -p /srv/jupyterhub/
 WORKDIR /srv/jupyterhub/
 EXPOSE 8000
 
 LABEL org.jupyter.service="jupyterhub"
-
+RUN jupyterhub --generate-config
 CMD ["jupyterhub"]
