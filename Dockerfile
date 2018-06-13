@@ -29,10 +29,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get -y update && \
     apt-get -y upgrade && \
     apt-get -y install wget git bzip2 && \
-    apt-get -y install npm nodejs && \ 
-    apt-get purge && \
-    apt-get clean && \  
-    rm -rf /var/lib/apt/lists/*
+    apt-get -y install npm nodejs
 ENV LANG C.UTF-8
 
 # install Python + NodeJS with conda
@@ -46,6 +43,11 @@ RUN wget -q https://repo.continuum.io/miniconda/Miniconda3-4.5.1-Linux-x86_64.sh
     rm /tmp/miniconda.sh
 ENV PATH=/opt/conda/bin:$PATH
 
+# Adding Users to the Image Container
+RUN useradd -ms /bin/bash idhruvs
+RUN mkdir -p /home/idhruvs/notebooks
+RUN ls -la /home/idhruvs/notebooks 
+
 ADD . /src/jupyterhub
 WORKDIR /src/jupyterhub
 
@@ -54,10 +56,10 @@ RUN pip install . && \
 RUN pip install oauthenticator
 RUN pip install --upgrade notebook
 
-RUN mkdir -p /srv/jupyterhub/
-WORKDIR /srv/jupyterhub/
+RUN mkdir -p /srv/jupyterhub/ 
+WORKDIR /srv/jupyterhub/ 
 EXPOSE 8000
 
 LABEL org.jupyter.service="jupyterhub"
-RUN jupyterhub --generate-config
+COPY ./config/jupyterhub_config.py jupyterhub_config.py
 CMD ["jupyterhub"]
