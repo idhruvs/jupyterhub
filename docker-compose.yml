@@ -1,0 +1,5 @@
+version: '2'
+services: 
+    man: 
+        build: .
+        image: dhruv/jupyterhub-custom

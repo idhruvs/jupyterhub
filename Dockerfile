@@ -52,7 +52,7 @@ WORKDIR /src/jupyterhub
 RUN pip install . && \
     rm -rf $PWD ~/.cache ~/.npm
 RUN pip install oauthenticator
-RUN pip --update notebooks
+RUN pip install --upgrade notebook
 
 RUN mkdir -p /srv/jupyterhub/
 WORKDIR /srv/jupyterhub/
