@@ -6,7 +6,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get -y update && \
     apt-get -y upgrade && \
     apt-get -y install wget git bzip2 && \
-    apt-get -y install npm nodejs
+    apt-get -y install npm nodejs vim
 ENV LANG C.UTF-8
 
 # install Python + NodeJS with conda
@@ -35,8 +35,10 @@ WORKDIR /src/jupyterhub
 
 RUN pip install . && \
     rm -rf $PWD ~/.cache ~/.npm
-RUN pip install oauthenticator
-RUN pip install --upgrade notebook
+
+RUN pip install oauthenticator && \
+    pip install --upgrade notebook && \
+    pip install dockerspawner
 
 RUN mkdir -p /srv/jupyterhub/ 
 WORKDIR /srv/jupyterhub/ 
