@@ -1,5 +1,12 @@
-**[Technical Overview](#technical-overview)** |
-**[Installation](#installation)** |
+
+## Customizations Performed
+1. Added custom authenticator module (placed inside config folder) [Reference: https://stackoverflow.com/questions/42084979/how-to-authenticate-jupyterhub-user-with-json-web-token-jwt]
+2. Added custom jupyterhub_config file (placed inside config folder) [Reference: https://github.com/jupyterhub/jupyterhub/wiki/Installation-of-Jupyterhub-on-remote-server]
+3. Reference for Custom-spawner to dynamically create directories for users in docker container:
+    a. https://github.com/CRegenschein/jupyterhub/tree/master/examples/bootstrap-script
+    b. https://github.com/jupyterhub/jupyterhub/issues/1219
+
+**[Technical Overview](#technical-overview)** | **[Installation](#installation)** |
 **[Configuration](#configuration)** |
 **[Docker](#docker)** |
 **[Contributing](#contributing)** |

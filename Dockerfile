@@ -1,26 +1,3 @@
-# An incomplete base Docker image for running JupyterHub
-#
-# Add your configuration to create a complete derivative Docker image.
-#
-# Include your configuration settings by starting with one of two options:
-#
-# Option 1:
-#
-# FROM jupyterhub/jupyterhub:latest
-#
-# And put your configuration file jupyterhub_config.py in /srv/jupyterhub/jupyterhub_config.py.
-#
-# Option 2:
-#
-# Or you can create your jupyterhub config and database on the host machine, and mount it with:
-#
-# docker run -v $PWD:/srv/jupyterhub -t jupyterhub/jupyterhub
-#
-# NOTE
-# If you base on jupyterhub/jupyterhub-onbuild
-# your jupyterhub_config.py will be added automatically
-# from your docker directory.
-
 FROM ubuntu:18.04
 LABEL maintainer="Jupyter Project <jupyter@googlegroups.com>"
 
@@ -44,9 +21,14 @@ RUN wget -q https://repo.continuum.io/miniconda/Miniconda3-4.5.1-Linux-x86_64.sh
 ENV PATH=/opt/conda/bin:$PATH
 
 # Adding Users to the Image Container
-RUN useradd -ms /bin/bash idhruvs
-RUN mkdir -p /home/idhruvs/notebooks
-RUN ls -la /home/idhruvs/notebooks 
+#RUN useradd -ms /bin/bash idhruvs
+#RUN mkdir -p /home/idhruvs/notebooks
+#RUN ls -la /home/idhruvs/notebooks 
+
+ADD ./config/jupyterhub-custom-auth /src/jupyterhub-custom-auth
+WORKDIR /src/jupyterhub-custom-auth
+
+RUN pip install . 
 
 ADD . /src/jupyterhub
 WORKDIR /src/jupyterhub

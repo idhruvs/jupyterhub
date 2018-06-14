@@ -10,11 +10,6 @@ c.GitHubOAuthenticator.client_secret = 'd00acd14a9769bdbd0dfe996bff2c86a2ee0ecee
 # This is an application.
 # create system users that don't exist yet
 c.LocalAuthenticator.create_system_users = True
-c.Authenticator.whitelist = {'idhruvs'}
-c.Authenticator.admin_users = {'idhruvs'}
-c.Spawner.notebook_dir = '~/notebooks'
-#c.JupyterHub.ssl_cert = 'mycert.pem'
-#c.JupyterHub.ssl_key = 'mykey.key'
 c.JupyterHub.cookie_secret_file = '/srv/jupyterhub/jupyterhub_cookie_secret'
 c.JupyterHub.proxy_cmd = ['/opt/conda/bin/configurable-http-proxy']
 
